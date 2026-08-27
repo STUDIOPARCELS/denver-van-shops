@@ -1,10 +1,10 @@
 /**
  * iMessage / crawlers need og:image. The Grok injector skips it on *.vercel.app.
- * This wraps the HTML response and adds the share tags if they are missing.
+ * Force one title and one image so the preview is not duplicated.
  */
-const IMAGE = "https://denver-van-shops.vercel.app/og.jpg?v=laura";
-const TITLE = "Laura McGinley";
-const DESC = "Denver Van Shops";
+const IMAGE = "https://denver-van-shops.vercel.app/og.jpg?v=left";
+const TITLE = "Denver Van Shops";
+const DESC = "Laura McGinley · September 7–16";
 
 const TAGS = [
   `<meta property="og:title" content="${TITLE}">`,
@@ -17,6 +17,13 @@ const TAGS = [
   `<meta name="twitter:image" content="${IMAGE}">`,
 ].join("");
 
+function stripShare(html: string) {
+  return html.replace(
+    /<meta\b[^>]*(?:property|name)=["'](?:og:title|og:description|og:image|og:image:width|og:image:height|twitter:card|twitter:title|twitter:image|twitter:description)["'][^>]*>/gi,
+    "",
+  );
+}
+
 export default async function shareUnfurl(
   event: { url: URL; req: { method: string; headers: Headers } },
   next: () => unknown | Promise<unknown>,
@@ -26,15 +33,9 @@ export default async function shareUnfurl(
   const type = result.headers.get("content-type") ?? "";
   if (!type.includes("text/html") || !result.body) return result;
 
-  const html = await result.text();
-  if (html.includes('property="og:image"') && html.includes("Laura McGinley")) {
-    return new Response(html, { status: result.status, headers: result.headers });
-  }
-
-  const nextHtml = html.includes("</head>")
-    ? html.replace("</head>", `${TAGS}</head>`)
-    : TAGS + html;
+  let html = stripShare(await result.text());
+  html = html.includes("</head>") ? html.replace("</head>", `${TAGS}</head>`) : TAGS + html;
   const headers = new Headers(result.headers);
   headers.delete("content-length");
-  return new Response(nextHtml, { status: result.status, statusText: result.statusText, headers });
+  return new Response(html, { status: result.status, statusText: result.statusText, headers });
 }
