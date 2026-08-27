@@ -33,24 +33,45 @@ function ShopCard({
   tile: (typeof TILE)[number];
 }) {
   const img = shop.images[0];
+  const inventoryHref = shop.lotUrl ?? shop.website;
 
   return (
-    <Link
-      to="/shop/$slug"
-      params={{ slug: shop.slug }}
-      className={`flex aspect-square flex-col overflow-hidden rounded-xl active:scale-press ${tile.box}`}
-    >
-      <div className="px-3 pt-3 pb-2">
-        <h2 className={`font-display text-xl leading-none ${tile.name}`}>{shop.name}</h2>
-        <p className={`mt-1 text-kicker font-extrabold tracking-wide ${tile.meta}`}>
-          {shop.city.toUpperCase()} · {lotLine(shop)}
-        </p>
+    <article className={`flex flex-col overflow-hidden rounded-xl ${tile.box}`}>
+      <Link
+        to="/shop/$slug"
+        params={{ slug: shop.slug }}
+        className="flex flex-col active:scale-press"
+      >
+        <div className="px-3 pt-3 pb-2">
+          <h2 className={`font-display text-xl leading-none ${tile.name}`}>{shop.name}</h2>
+          <p className={`mt-1 text-kicker font-extrabold tracking-wide ${tile.meta}`}>
+            {shop.city.toUpperCase()} · {lotLine(shop)}
+          </p>
+        </div>
+        <img
+          src={img?.src ?? "/vans/mountain-pair.jpg"}
+          alt={img?.alt ?? shop.name}
+          className="h-28 w-full object-cover"
+        />
+      </Link>
+      <div className="grid grid-cols-2 gap-1 p-2">
+        <a
+          href={shop.website}
+          target="_blank"
+          rel="noreferrer"
+          className="flex h-11 items-center justify-center rounded-lg bg-ink text-kicker font-extrabold tracking-wide text-cream"
+        >
+          SITE
+        </a>
+        <a
+          href={inventoryHref}
+          target="_blank"
+          rel="noreferrer"
+          className="flex h-11 items-center justify-center rounded-lg bg-ink text-kicker font-extrabold tracking-wide text-cream"
+        >
+          INVENTORY
+        </a>
       </div>
-      <img
-        src={img?.src ?? "/vans/mountain-pair.jpg"}
-        alt={img?.alt ?? shop.name}
-        className="min-h-0 w-full flex-1 object-cover"
-      />
-    </Link>
+    </article>
   );
 }

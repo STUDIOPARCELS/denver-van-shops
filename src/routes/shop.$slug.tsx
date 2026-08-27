@@ -53,15 +53,21 @@ function ShopPage() {
         />
       )}
 
+      <div className="mt-4 grid grid-cols-2 gap-2">
+        <Button asChild variant="share" size="lg">
+          <a href={shop.website} target="_blank" rel="noreferrer">
+            SITE
+          </a>
+        </Button>
+        <Button asChild variant="rust" size="lg">
+          <a href={shop.lotUrl ?? shop.website} target="_blank" rel="noreferrer">
+            INVENTORY
+          </a>
+        </Button>
+      </div>
+
       <section className="mt-8">
         <h2 className="font-display text-4xl text-cream">INVENTORY</h2>
-        {shop.lotUrl && (
-          <Button asChild variant="rust" size="lg" className="mt-3 w-full">
-            <a href={shop.lotUrl} target="_blank" rel="noreferrer">
-              VANS ON LOT
-            </a>
-          </Button>
-        )}
         {lot.length === 0 ? (
           <p className="mt-3 rounded-xl bg-paper p-4 text-base font-bold text-ink ring-1 ring-line">
             {shop.lotUrl
