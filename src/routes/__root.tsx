@@ -31,6 +31,7 @@ export const Route = createRootRoute({
       },
       { rel: "manifest", href: "/__grok/manifest.webmanifest" },
       { rel: "apple-touch-icon", href: "/__grok/icon-180.png" },
+      { rel: "image_src", href: "https://denver-van-shops.vercel.app/og.jpg" },
     ],
   }),
   component: () => (
