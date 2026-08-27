@@ -3,7 +3,7 @@ import { AuthProvider } from "@/lib/auth/provider";
 import { PreviewHostBridge } from "@/components/preview-host-bridge";
 import appCss from "../styles.css?url";
 
-const APP_NAME = "Denver Van Shops";
+const APP_NAME = "Laura McGinley";
 
 export const Route = createRootRoute({
   head: () => ({
@@ -14,7 +14,7 @@ export const Route = createRootRoute({
       {
         name: "description",
         content:
-          "Denver van shops — tap a company for inventory, custom timeline, and contact.",
+          "Laura McGinley — Denver van shops, September 7–16.",
       },
       { name: "theme-color", content: "#020817" },
       { name: "apple-mobile-web-app-capable", content: "yes" },
