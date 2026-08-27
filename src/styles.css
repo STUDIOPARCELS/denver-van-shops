@@ -1,0 +1,70 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@theme {
+  --color-bg: #020817;
+  --color-paper: #efe6d4;
+  --color-ink: #0c1220;
+  --color-muted: #8b9bb3;
+  --color-stone: #5a5348;
+  --color-line: rgba(12, 18, 32, 0.14);
+  --color-rust: #d4a24a;
+  --color-rust-deep: #b8863a;
+  --color-cream: #efe6d4;
+  --color-clay: #a65b38;
+  --color-slate: #3e5370;
+  --font-display: "Anton", "Arial Narrow", Impact, sans-serif;
+  --font-sans: "Figtree", "Segoe UI", sans-serif;
+  --radius-lg: 0.75rem;
+  --radius-xl: 1rem;
+  --radius-2xl: 1.25rem;
+  --tracking-mark: 0.22em;
+  --leading-display: 0.9;
+  --scale-press: 0.97;
+  --aspect-door: 16 / 9;
+  --aspect-van: 16 / 9;
+  --aspect-strip: 21 / 9;
+  --text-hero: 3.5rem;
+  --text-kicker: 0.6875rem;
+}
+
+@layer base {
+  html {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  body {
+    background: var(--color-bg);
+    color: var(--color-cream);
+    font-family: var(--font-sans);
+  }
+  h1,
+  h2,
+  h3,
+  h4 {
+    text-wrap: balance;
+    font-family: var(--font-display);
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+  }
+  p {
+    text-wrap: pretty;
+  }
+  button:not(:disabled),
+  [role="button"]:not(:disabled) {
+    cursor: pointer;
+  }
+  img {
+    display: block;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
